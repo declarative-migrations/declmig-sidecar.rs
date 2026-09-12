@@ -3,3 +3,6 @@
 .env
 .env.*
 !.env.example
+
+# Machine-local agent instruction symlink (absolute path; never committed)
+.ores/
