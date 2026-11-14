@@ -2,6 +2,9 @@
 
 #[path = "../generated/rust/env.rs"]
 mod env;
+// This generated flags-2-env module is immutable; scope the generator's
+// legacy match-like-matches warning to it, not to hand-written source.
+#[allow(clippy::match_like_matches_macro)]
 #[path = "../generated/rust/runtime.rs"]
 mod env_runtime;
 
