@@ -15,7 +15,10 @@ fn main() {
         false,
     ) {
         Ok(cfg) => cfg,
-        Err(_) => SidecarConfig::from_env(SidecarIdentity::new(env::SERVICE, env::BIND)),
+        Err(_) => {
+            eprintln!("invalid DECLMIG_SIDECAR_BIND; refusing to start");
+            std::process::exit(2);
+        }
     };
     runtime::run(&cfg);
 }
