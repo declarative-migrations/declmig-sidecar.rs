@@ -2,6 +2,9 @@
 
 #[path = "../generated/rust/env.rs"]
 mod env;
+// This generated flags-2-env module is immutable; scope the generator's
+// legacy match-like-matches warning to it, not to hand-written source.
+#[allow(clippy::match_like_matches_macro)]
 #[path = "../generated/rust/runtime.rs"]
 mod env_runtime;
 
@@ -15,7 +18,10 @@ fn main() {
         false,
     ) {
         Ok(cfg) => cfg,
-        Err(_) => SidecarConfig::from_env(SidecarIdentity::new(env::SERVICE, env::BIND)),
+        Err(_) => {
+            eprintln!("invalid DECLMIG_SIDECAR_BIND; refusing to start");
+            std::process::exit(2);
+        }
     };
     runtime::run(&cfg);
 }
